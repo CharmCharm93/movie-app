@@ -1,9 +1,10 @@
 import * as React from "react";
 import { Routes, Route } from "react-router-dom";
 import NavBar from "./components/NavBar";
-import Login from "./pages/Login/Login";
-import Movies from "./pages/Movies/Movies";
-import Trending from "./pages/Trending/Trending";
+import Login from "./pages/Login";
+import MovieDetail from "./pages/MovieDetail";
+import Movies from "./pages/Movies";
+import Trending from "./pages/Trending";
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
       <NavBar />
       <Routes>
         <Route path="/movies" element={<Movies />} />
+        <Route path="/movies/:id" element={<MovieDetail />} />
         <Route path="/trending" element={<Trending />} />
         <Route path="/login" element={<Login />} />
       </Routes>

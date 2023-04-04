@@ -5,7 +5,8 @@ import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import { styled } from "@mui/material";
-
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/Auth";
 const StyleOuterRate = styled("div")({
   position: "absolute",
   top: "-25px",
@@ -31,10 +32,20 @@ const StyleRateRing = styled("div")({
 });
 
 export default function RenderMovies({ movie }) {
+  const auth = useAuth();
+  const navigate = useNavigate();
+  const handleClick = () => {
+    if (!auth.user) {
+      navigate("/login");
+    } else {
+      navigate(`/movies/${movie.id}`);
+    }
+  };
   return (
     <Card
       sx={{ width: "100%", height: "100%" }}
       style={{ borderRadius: 10, position: "relative" }}
+      onClick={handleClick}
     >
       <CardMedia
         component="img"
@@ -44,7 +55,7 @@ export default function RenderMovies({ movie }) {
 
       <CardContent style={{ position: "relative" }}>
         <StyleOuterRate>
-          <StyleRateRing>{movie.vote_average} </StyleRateRing>
+          <StyleRateRing>{movie.vote_average.toFixed(1)}</StyleRateRing>
         </StyleOuterRate>
         <Typography variant="h6" color="text.primary" fontWeight={550}>
           {movie.title}

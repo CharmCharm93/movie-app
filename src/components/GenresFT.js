@@ -10,9 +10,9 @@ import apiService from "../api/apiService";
 import { API_KEY } from "../api/config";
 import { Stack } from "@mui/system";
 
-function GenresFT({ setGenreId, genreId }) {
+function GenresFT({ setGenreId, genreId, genreName, setGenreName }) {
   const [genres, setGenres] = React.useState([]);
-  const [genreName, setGenreName] = React.useState("");
+
   useEffect(() => {
     const getGenres = async () => {
       try {
@@ -40,7 +40,7 @@ function GenresFT({ setGenreId, genreId }) {
     <>
       <Accordion>
         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-          <Typography>Genres {genreName ? `/ ${genreName}` : ""} </Typography>
+          <Typography>Genres </Typography>
         </AccordionSummary>
         <AccordionDetails>
           <Stack direction="column" sx={{ margin: "2px" }}>

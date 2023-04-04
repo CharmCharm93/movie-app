@@ -1,7 +1,7 @@
 User Stories
 Users can see many movies layout on the website - done
 Users can see paginate through all movies from the database -done
-Users can see the detail of one single movie in a separate page, then select a movie from the list
+Users can see the detail of one single movie in a separate page - done - then select a movie from the list >?
 Users can see information about the movie (authors, description, title, genres …)
 Users can see filter UI and can filter movies by genres -done
 Users can see search UI and can search movies in the database by keyword

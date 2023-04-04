@@ -1,19 +1,20 @@
 import * as React from "react";
-import apiService from "../../api/apiService";
+import apiService from "../api/apiService";
 import { useEffect, useState } from "react";
-import { API_KEY } from "../../api/config";
+import { API_KEY } from "../api/config";
 import { Grid, Typography } from "@mui/material";
-import RenderMovies from "../RenderMovies";
+import RenderMovies from "../components/RenderMovies";
 import { Box } from "@mui/system";
-import FTPagination from "../../components/FTPagination";
-import GenresFT from "../../components/GenresFT";
-import SearchBox from "../../components/SearchBox";
+import FTPagination from "../components/FTPagination";
+import GenresFT from "../components/GenresFT";
+import SearchBox from "../components/SearchBox";
 function Movies() {
   const [movies, setMovies] = useState([]);
   const [page, setPage] = useState(1);
   const [genreId, setGenreId] = useState([]);
   const [totalPages, setTotalPages] = useState(0);
   const [found, setFound] = useState("");
+  const [genreName, setGenreName] = useState("");
 
   console.log(genreId);
 
@@ -39,7 +40,7 @@ function Movies() {
       <Box flexGrow={1} mt={3} display="flex" justifyContent="space-between">
         <Box display={"flex"} flexDirection="row">
           <Typography variant="h6" color="text.primary">
-            Popular Movies
+            Popular Movies {genreName ? `/ ${genreName}` : ""}
           </Typography>
         </Box>
         <Box>
@@ -52,7 +53,12 @@ function Movies() {
 
       <Box flexGrow={1} mt={3} display="flex">
         <Box flexBasis={"100px"} mr={1} flexDirection="column">
-          <GenresFT genreId={genreId} setGenreId={setGenreId} />
+          <GenresFT
+            genreId={genreId}
+            setGenreId={setGenreId}
+            genreName={genreName}
+            setGenreName={setGenreName}
+          />
         </Box>
 
         <Grid container rowSpacing={5} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>

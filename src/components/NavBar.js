@@ -8,6 +8,7 @@ import {
   Typography,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
+import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import { Tab } from "@mui/material";
 import LiveTvIcon from "@mui/icons-material/LiveTv";
@@ -16,7 +17,8 @@ import TheatersIcon from "@mui/icons-material/Theaters";
 import DrawerMenu from "./DrawerMenu";
 import { styled } from "@mui/material/styles";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../context/Auth";
 
 const StyledTab = styled(Tab)(({ theme }) => ({
   color: "#fff",
@@ -27,13 +29,18 @@ const StyledTab = styled(Tab)(({ theme }) => ({
 
 function NavBar() {
   const [openMenu, setOpenMenu] = useState(false);
-
   const [value, setValue] = useState("movies");
+  const navigate = useNavigate();
+  const auth = useAuth();
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
-  const navigate = useNavigate();
+  const handleLogOut = () => {
+    auth.logout();
+    navigate("/movies");
+  };
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -46,9 +53,10 @@ function NavBar() {
               mr: 2,
               minHeight: "72px",
             }}
+            disableRipple={true}
           >
             <TheatersIcon />
-            <Typography ml={1}>Movie station</Typography>
+            <Typography ml={1}>Movie station logo</Typography>
           </IconButton>
           <Tabs
             value={value}
@@ -90,16 +98,34 @@ function NavBar() {
           >
             <MenuIcon />
           </IconButton>
-          <IconButton
-            size="large"
-            aria-label="account of current user"
-            aria-controls="menu-appbar"
-            aria-haspopup="true"
-            color="inherit"
-            sx={{ display: { xs: "none", sm: "flex" } }}
-          >
-            <AccountCircle />
-          </IconButton>
+          {!auth.user && (
+            <IconButton
+              size="large"
+              color="inherit"
+              sx={{ display: { xs: "none", sm: "flex" } }}
+              component={Link}
+              to={"/login"}
+            >
+              <AccountCircle />
+            </IconButton>
+          )}
+
+          {auth.user && (
+            <>
+              <Typography
+                variant="h6"
+                noWrap
+                component="div"
+                mr={2}
+                sx={{ display: { xs: "none", md: "block" } }}
+              >
+                Welcome {auth.user} !
+              </Typography>
+              <IconButton size="large" color="inherit" onClick={handleLogOut}>
+                <ExitToAppIcon />
+              </IconButton>
+            </>
+          )}
         </Toolbar>
       </AppBar>
       <DrawerMenu openMenu={openMenu} setOpenMenu={setOpenMenu} />
