@@ -12,7 +12,6 @@ import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import { Tab } from "@mui/material";
 import LiveTvIcon from "@mui/icons-material/LiveTv";
-import TrendingUpIcon from "@mui/icons-material/TrendingUp";
 import TheatersIcon from "@mui/icons-material/Theaters";
 import DrawerMenu from "./DrawerMenu";
 import { styled } from "@mui/material/styles";
@@ -39,7 +38,7 @@ function NavBar() {
 
   const handleLogOut = () => {
     auth.logout();
-    navigate("/movies");
+    navigate("/");
   };
 
   return (
@@ -72,14 +71,8 @@ function NavBar() {
             <StyledTab
               value="movies"
               icon={<LiveTvIcon />}
-              label="Movies"
+              label="Discover"
               onClick={() => navigate("/movies")}
-            />
-            <StyledTab
-              value="trending"
-              icon={<TrendingUpIcon />}
-              label="Trending"
-              onClick={() => navigate("/trending")}
             />
           </Tabs>
 
@@ -92,7 +85,7 @@ function NavBar() {
             sx={{
               mr: 2,
               minHeight: "72px",
-              display: { xs: "flex", sm: "none" },
+              display: { xs: "flex", md: "none" },
             }}
             onClick={setOpenMenu}
           >
@@ -102,7 +95,7 @@ function NavBar() {
             <IconButton
               size="large"
               color="inherit"
-              sx={{ display: { xs: "none", sm: "flex" } }}
+              sx={{ display: { xs: "none", md: "flex" } }}
               component={Link}
               to={"/login"}
             >
@@ -120,10 +113,10 @@ function NavBar() {
                 sx={{ display: { xs: "none", md: "block" } }}
               >
                 Welcome {auth.user} !
+                <IconButton size="large" color="inherit" onClick={handleLogOut}>
+                  <ExitToAppIcon />
+                </IconButton>
               </Typography>
-              <IconButton size="large" color="inherit" onClick={handleLogOut}>
-                <ExitToAppIcon />
-              </IconButton>
             </>
           )}
         </Toolbar>

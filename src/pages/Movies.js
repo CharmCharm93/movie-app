@@ -7,7 +7,6 @@ import RenderMovies from "../components/RenderMovies";
 import { Box } from "@mui/system";
 import FTPagination from "../components/FTPagination";
 import GenresFT from "../components/GenresFT";
-import SearchBox from "../components/SearchBox";
 function Movies() {
   const [movies, setMovies] = useState([]);
   const [page, setPage] = useState(1);
@@ -16,14 +15,14 @@ function Movies() {
   const [found, setFound] = useState("");
   const [genreName, setGenreName] = useState("");
 
-  console.log(genreId);
+  // console.log(genreId);
 
   // get movies data
   useEffect(() => {
     const getMovies = async () => {
       try {
         const { data } = await apiService.get(
-          `discover/movie?api_key=${API_KEY}&language=en-US&sort_by=popularity.desc&page=${page}&with_genres=${genreId}`
+          `discover/movie?api_key=${API_KEY}&language=en-US&sort_by=popularity.desc&page=${page}&with_genres=${genreId}&with_keywords=550`
         );
         setMovies(data?.results);
         setFound(data?.total_results);
@@ -40,18 +39,13 @@ function Movies() {
       <Box flexGrow={1} mt={3} display="flex" justifyContent="space-between">
         <Box display={"flex"} flexDirection="row">
           <Typography variant="h6" color="text.primary">
-            Popular Movies {genreName ? `/ ${genreName}` : ""}
-          </Typography>
-        </Box>
-        <Box>
-          <SearchBox />
-          <Typography variant="body" color="text.secondary" mb={5}>
-            {found} results found
+            Popular Movies
           </Typography>
         </Box>
       </Box>
 
       <Box flexGrow={1} mt={3} display="flex">
+        {/* Filter group, need find keywords id */}
         <Box flexBasis={"100px"} mr={1} flexDirection="column">
           <GenresFT
             genreId={genreId}
@@ -59,6 +53,12 @@ function Movies() {
             genreName={genreName}
             setGenreName={setGenreName}
           />
+          <Box>
+            Implement search here
+            <Typography variant="body" color="text.secondary" mb={5}>
+              {found} results found
+            </Typography>
+          </Box>
         </Box>
 
         <Grid container rowSpacing={5} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>

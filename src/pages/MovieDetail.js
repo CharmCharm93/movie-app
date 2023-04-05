@@ -15,7 +15,9 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 function MovieDetail() {
   let params = useParams();
-  let movieId = params.id;
+  let movieId = params.movieId;
+  // console.log(movieId);
+
   let navigate = useNavigate();
   const [movie, setMovie] = useState(null);
   const handleBack = () => {

@@ -46,7 +46,7 @@ function Trending() {
     <>
       <Box flexGrow={1} mt={3} ldisplay="flex" alignItems={"center"}>
         <Typography variant="h2" gutterBottom>
-          Top of the{" "}
+          Trending of the{" "}
           <span>
             <TextField
               id="standard-select-currency"

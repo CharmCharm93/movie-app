@@ -5,7 +5,7 @@ import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import { styled } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/Auth";
 const StyleOuterRate = styled("div")({
   position: "absolute",
@@ -34,9 +34,14 @@ const StyleRateRing = styled("div")({
 export default function RenderMovies({ movie }) {
   const auth = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
+  // console.log(location);
+
   const handleClick = () => {
     if (!auth.user) {
-      navigate("/login");
+      navigate("/login", {
+        state: { background: location, movieId: movie.id },
+      });
     } else {
       navigate(`/movies/${movie.id}`);
     }
